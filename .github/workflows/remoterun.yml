@@ -9,7 +9,19 @@ on:
     inputs:
       name:
         description: 'Collecion Name'     
-        default: ''
+        default: 'scenario_aws_terraform_remote'
+      environment:
+        type: choice
+        description: Run environment
+        options: 
+        - QA
+        - PROD
+      company:
+        type: choice
+        description: Tenant
+        options: 
+        - john
+        - htc
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -45,10 +57,16 @@ jobs:
           pip install -U pip
           pip install -U prancer-basic
           prancer -v
+          envval='${{ github.event.inputs.environment }}'
+          tenant='${{ github.event.inputs.company }}'
           collection='${{ github.event.inputs.name }}'
           apikey="${APIKEY}"
           gittoken="${GITTOKEN}"
-          prancer --db REMOTE --env QA --apitoken $apikey --gittoken $gittoken --company prancer-john $collection
+          if [ "$envval" != "QA" ]; then
+              prancer --db REMOTE --apitoken $apikey --gittoken $gittoken --company prancer-$tenant $collection
+          else
+              prancer --db REMOTE --env QA --apitoken $apikey --gittoken $gittoken --company prancer-$tenant $collection
+          fi
         env:
           APIKEY: ${{ secrets.APIKEY }}
           GITTOKEN: ${{ secrets.GITTOKEN }}
