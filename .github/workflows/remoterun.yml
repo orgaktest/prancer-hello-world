@@ -33,6 +33,14 @@ jobs:
           echo "helm binary path..."
           which helm
           python3 -m venv helloenv
+          echo "" >> config.ini
+          echo "[OPA]" >> config.ini
+          echo "opa = true" >> config.ini
+          echo "opaexe = /usr/local/bin/opa" >> config.ini
+          echo "" >> config.ini
+          echo "[HELM]" >> config.ini
+          echo "helmexe = /usr/local/bin/helm" >> config.ini
+          cat config.ini
           source helloenv/bin/activate
           pip install -U pip
           pip install -U prancer-basic
