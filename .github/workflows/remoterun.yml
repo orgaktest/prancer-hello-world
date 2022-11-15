@@ -7,7 +7,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      region:
+      name:
         description: 'Collecion Name'     
         default: ''
 
@@ -37,6 +37,10 @@ jobs:
           pip install -U pip
           pip install -U prancer-basic
           prancer -v
+          collection='${{ github.event.inputs.name }}'
+          apikey="${APIKEY}"
+          gittoken="${GITTOKEN}"
+          prancer --db REMOTE --env QA --apitoken $apikey --gittoken $gittoken --company prancer-john $collection
         env:
           APIKEY: ${{ secrets.APIKEY }}
           GITTOKEN: ${{ secrets.GITTOKEN }}
