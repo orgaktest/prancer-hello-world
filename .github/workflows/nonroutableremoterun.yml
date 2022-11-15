@@ -68,6 +68,6 @@ jobs:
               prancer --db REMOTE --env QA --apitoken $apikey --gittoken $gittoken --company prancer-$tenant $collection
           fi
         env:
-          APIKEY: ${{ secrets.APIKEY }}
-          GITTOKEN: ${{ secrets.GITTOKEN }}
+          APIKEY: ${{ secrets.HTCAPIKEY }}
+          GITTOKEN: ${{ secrets.HTCGITTOKEN }}
   
