@@ -60,7 +60,7 @@ jobs:
           envval='${{ github.event.inputs.environment }}'
           tenant='${{ github.event.inputs.company }}'
           collection='${{ github.event.inputs.name }}'
-          apikey="${HTCAPIKEY}"
+          apikey="${APIKEY}"
           gittoken="${GITTOKEN}"
           if [ "$envval" != "QA" ]; then
               prancer --db REMOTE --apitoken $apikey --gittoken $gittoken --company prancer-$tenant $collection
